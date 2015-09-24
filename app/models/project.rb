@@ -48,8 +48,11 @@ class Project < ActiveRecord::Base
       instructions.ci_cmds = cmds['cibuild']
     end
 
-    if instructions.ci_cmds.nil? && has_file?('script/cibuild')
-      instructions.ci_cmds = ['script/cibuild']
+    cibuild_file_path = Rails.root.join('script/cibuild')
+
+    puts "HELOO "
+    if instructions.ci_cmds.nil? && has_file?(cibuild_file_path)
+      instructions.ci_cmds = [cibuild_file_path]
     end
 
     # Default to no preparation commands.
